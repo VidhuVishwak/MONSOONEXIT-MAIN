@@ -9,16 +9,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
 
-
-
-
 const Home = () => {
     var nav = useNavigate();
     var [user, setuser] = useState([])
     useEffect(() => {
         axios.get("http://localhost:3001/get")
             .then((res) => {
-                console.log("data retrieved");
                 setuser(res.data);
             })
             .catch((err) => {
@@ -29,6 +25,7 @@ const Home = () => {
     var del = (id) => {
         if (window.confirm("Are you sure you want to delete this blog post?")) {
             axios.delete("http://localhost:3001/del/" + id)
+            window.location.reload(); 
         }else{
             alert("Deletion cancelled")
         }
@@ -36,16 +33,6 @@ const Home = () => {
     var upd = (val) => {
         nav("/add", { state: { val } });
     }
-
-
-    axios.get("http://localhost:3001/get")
-        .then((res) => {
-            console.log("data retrived");
-            setuser(res.data);
-        })
-        .catch((err) => {
-            console.log("Error fetching data:", err);
-        });
 
 
     return (

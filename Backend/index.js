@@ -27,25 +27,23 @@ app.get("/get", async (req, res) => {
 });
 
 app.delete("/del/:id", async (req, res) => {
-    try {
-        var del = await BlogModel.findByIdAndDelete(req.params.id)
-        res.send({ message: "Deleted" })
+  try {
+    await BlogModel.findByIdAndDelete(req.params.id)
+  } catch (error) {
+    console.log(error);
 
-    } catch (error) {
-        console.log(error);
-
-    }
+  }
 })
 
 app.put("/update/:id", async (req, res) => {
-    try {
-        var update = await BlogModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        res.send({ message: "Updated", data: update })
+  try {
+    var update = await BlogModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.send({ message: "Updated", data: update })
 
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({ message: "Error updating data" })
-    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error updating data" })
+  }
 })
 
 
